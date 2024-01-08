@@ -28,6 +28,11 @@
     p7zip
     zstd
     gnutar
+
+    # nodejs
+    nodePackages.nodejs
+    nodePackages.npm
+    yarn
   ];
 
   programs = {
