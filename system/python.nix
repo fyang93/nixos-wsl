@@ -6,6 +6,10 @@
       jupyter
       ipython
       pandas
+      soundfile
+      pydub
+      tqdm
+      rich
       # other python packages
     ];
   in [

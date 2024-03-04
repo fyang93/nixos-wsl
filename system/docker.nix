@@ -10,8 +10,4 @@
       enableOnBoot = true;
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    docker-compose
-  ];
 }

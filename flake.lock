@@ -188,22 +188,6 @@
         "type": "indirect"
       }
     },
-    "nushell-scripts": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1698772191,
-        "narHash": "sha256-Sug07QTL7fxxQAf9YOprMNEQSDqeXEk7qt1g2dP0Eqk=",
-        "owner": "nushell",
-        "repo": "nu_scripts",
-        "rev": "c2bb125a6790bef1e448680e077345c4d10dcb12",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nushell",
-        "repo": "nu_scripts",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "catppuccin-bat": "catppuccin-bat",
@@ -213,7 +197,6 @@
         "nixoswsl": "nixoswsl",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
-        "nushell-scripts": "nushell-scripts",
         "vscode-server": "vscode-server"
       }
     },

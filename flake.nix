@@ -115,12 +115,6 @@
       url = "github:nix-community/nixos-vscode-server";
     };
 
-    # useful nushell scripts, such as auto_completion
-    nushell-scripts = {
-      url = "github:nushell/nu_scripts";
-      flake = false;
-    };
-
     # color scheme
     catppuccin-btop = {
       url = "github:catppuccin/btop";

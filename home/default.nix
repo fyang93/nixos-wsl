@@ -1,8 +1,8 @@
 { pkgs, username, useremail, ...}: {
   imports = [
-    ./shell
     ./zellij
 
+    ./bash.nix
     ./bat.nix
     ./btop.nix
     ./starship.nix
@@ -35,6 +35,13 @@
       userEmail = "${useremail}";
     };
 
+    eza = {
+      enable = true;
+      enableAliases = true; # do not enable aliases in nushell!
+      git = true;
+      # icons = true;
+    };
+
     # A command-line fuzzy finder
     fzf = {
       enable = true;
@@ -59,7 +66,7 @@
     # A smarter cd command
     zoxide = {
       enable = true;
-      enableNushellIntegration = true;
+      enableBashIntegration = true;
     };
   };
 
@@ -70,5 +77,6 @@
     krabby
 
     # qmk
+    ffmpeg-full
   ];
 }
