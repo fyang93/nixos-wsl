@@ -10,6 +10,8 @@
       pydub
       tqdm
       rich
+      pyppeteer
+      aiofiles
       # other python packages
     ];
   in [

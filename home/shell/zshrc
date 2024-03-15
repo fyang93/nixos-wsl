@@ -1,0 +1,82 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# auto-install zinit
+if [[ ! -d $HOME/.local/share/zinit ]] {
+  echo '[zshrc] installing zinit...'
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+}
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+  printf "Installing Zinit Plugin Manager (zdharma-continuum/zinit)…\n"
+  command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+  command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" --depth=1 && \
+    printf "Installation successful.\n" || \
+    printf "The clone has failed.\n"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+  zdharma-continuum/zinit-annex-as-monitor \
+  zdharma-continuum/zinit-annex-bin-gem-node \
+  zdharma-continuum/zinit-annex-patch-dl \
+  zdharma-continuum/zinit-annex-rust
+
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+
+zinit ice lucid wait='0' atinit='zpcompinit'
+zinit light zdharma-continuum/fast-syntax-highlighting
+# zinit ice lucid wait="0" atload='_zsh_autosuggest_start'
+zinit light zsh-users/zsh-autosuggestions
+zinit ice lucid wait='0'
+zinit light zsh-users/zsh-completions
+
+# archive related stuffs
+zinit snippet https://github.com/fyang93/prezto/blob/master/modules/archive/functions/archive
+zinit snippet https://github.com/fyang93/prezto/blob/master/modules/archive/functions/unarchive
+zinit snippet https://github.com/fyang93/prezto/blob/master/modules/archive/functions/lsarchive
+
+zinit snippet PZT::modules/history/init.zsh
+zinit snippet PZT::modules/directory/init.zsh
+zinit snippet PZT::modules/completion/init.zsh
+zinit snippet PZT::modules/editor/init.zsh
+zinit snippet PZT::modules/rsync/init.zsh
+
+### End of Zinit's installer chunk
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# bindkey -v  # vi mode
+# bindkey '^p' history-search-backward
+# bindkey '^n' history-search-forward
+
+# history search
+# fzf-history-widget() {
+#     # selected command will be placed on command line
+#     BUFFER="$(fc -ln 1 | fzf +s --tac)"
+#     # move cursor to end of line
+#     CURSOR=$#BUFFER
+#     # clear fzf output
+#     zle clear-screen # or zle reset-prompt
+# }
+# zle -N fzf-history-widget
+# bindkey '^r' fzf-history-widget
+
+zshaddhistory() {
+  local line=${1##$'\n'##}    # remove all left \n
+  line=${line%%$'\n'##}       # remove all right \n
+  local cmd=${line%% *}       # take command without arguments
+  # add to history only when the following condition is true
+  [[ $#line -ge 5 && $cmd != l[sal] && $cmd != man && $cmd != less ]]
+}

@@ -1,9 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-stable, ... }:
 
 {
   imports = [
     ./system.nix
     ./user.nix
+    ./font.nix
     ./ssh.nix
     ./shell.nix
     ./python.nix
@@ -33,6 +34,9 @@
     nodePackages.nodejs
     nodePackages.npm
     yarn
+
+    # used by pyppeteer
+    pkgs-stable.chromium
   ];
 
   programs = {

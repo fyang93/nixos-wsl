@@ -1,8 +1,8 @@
 { pkgs, username, useremail, ...}: {
   imports = [
+    ./shell
     ./zellij
 
-    ./bash.nix
     ./bat.nix
     ./btop.nix
     ./starship.nix
@@ -45,6 +45,8 @@
     # A command-line fuzzy finder
     fzf = {
       enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
       # https://github.com/catppuccin/fzf
       # catppuccin-mocha
       colors = {
@@ -67,6 +69,7 @@
     zoxide = {
       enable = true;
       enableBashIntegration = true;
+      enableZshIntegration = true;
     };
   };
 
@@ -78,5 +81,8 @@
 
     # qmk
     ffmpeg-full
+
+    # custom scripts
+    (pkgs.buildEnv { name = "custom-scripts"; paths = [ ./shell ]; })
   ];
 }

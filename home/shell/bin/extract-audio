@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 <input_dir> <output_dir>"
+  exit 1
+fi
+
+# Check if ffmpeg is installed
+if ! command -v ffmpeg &>/dev/null; then
+  echo "Error: ffmpeg is not installed. Please install ffmpeg first."
+  exit 1
+fi
+
+input_dir="$1"
+output_dir="$2"
+
+if [ ! -d "$input_dir" ]; then
+  echo "Error: Input directory '$input_dir' not found."
+  exit 1
+fi
+
+if [ ! -d "$output_dir" ]; then
+  echo "Output directory '$output_dir' not found, creating..."
+  mkdir -p "$output_dir" || { echo "Error: Unable to create output directory '$output_dir'"; exit 1; }
+  echo "Output directory '$output_dir' created."
+fi
+
+for file in "$input_dir"/*.mp4; do
+  if [ -f "$file" ]; then
+    filename=$(basename "$file")
+    filename_no_ext="${filename%.*}"
+    aac_file="$output_dir/$filename_no_ext.aac"
+    wav_file="$output_dir/$filename_no_ext.wav"
+
+    echo "Extracting audio from $filename..."
+
+    # Extract audio to AAC format
+    ffmpeg -i "$file" -vn -c:a copy "$aac_file"
+
+    # Convert AAC to WAV
+    ffmpeg -i "$aac_file" "$wav_file"
+
+    echo "Audio extracted and converted: $wav_file"
+  fi
+done
