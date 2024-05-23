@@ -35,18 +35,17 @@
       userEmail = "${useremail}";
     };
 
-    eza = {
-      enable = true;
-      enableAliases = true; # do not enable aliases in nushell!
-      git = true;
-      # icons = true;
-    };
+    # eza = {
+    #   enable = true;
+    #   enableAliases = true; # do not enable aliases in nushell!
+    #   git = true;
+    #   # icons = true;
+    # };
 
     # A command-line fuzzy finder
     fzf = {
       enable = true;
       enableBashIntegration = true;
-      enableZshIntegration = true;
       # https://github.com/catppuccin/fzf
       # catppuccin-mocha
       colors = {
@@ -69,7 +68,7 @@
     zoxide = {
       enable = true;
       enableBashIntegration = true;
-      enableZshIntegration = true;
+      enableNushellIntegration = true;
     };
   };
 
@@ -83,6 +82,7 @@
     ffmpeg-full
 
     # custom scripts
+    # check home/shell/bin/
     (pkgs.buildEnv { name = "custom-scripts"; paths = [ ./shell ]; })
   ];
 }

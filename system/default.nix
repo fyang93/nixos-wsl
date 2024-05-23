@@ -23,6 +23,7 @@
     tldr # simple man pages
 
     # archive
+    ouch
     zip
     xz
     unzip

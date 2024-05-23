@@ -3,7 +3,7 @@
     enable = true;
 
     enableBashIntegration = true;
-    enableZshIntegration = false;
+    enableNushellIntegration = true;
 
     settings = {
       palette = "catppuccin_mocha";
