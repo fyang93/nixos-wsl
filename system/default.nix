@@ -7,7 +7,7 @@
     ./font.nix
     ./ssh.nix
     ./shell.nix
-    ./python.nix
+    # ./python.nix
     ./docker.nix
   ];
 
@@ -21,6 +21,7 @@
     # git-lfs
     psmisc  # killall/pstree/prtstat/fuser/...
     tldr # simple man pages
+    dig # DNS lookup tool
 
     # archive
     ouch
@@ -30,6 +31,9 @@
     p7zip
     zstd
     gnutar
+
+    # python
+    conda
 
     # nodejs
     nodePackages.nodejs
