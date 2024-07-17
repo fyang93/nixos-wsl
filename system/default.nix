@@ -17,8 +17,8 @@
     # helix # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     curl
-    # git
-    # git-lfs
+    git
+    git-lfs
     psmisc  # killall/pstree/prtstat/fuser/...
     tldr # simple man pages
     dig # DNS lookup tool
@@ -32,14 +32,17 @@
     zstd
     gnutar
 
-    # python
-    conda
-
+    # dev
     # nodejs
     nodePackages.nodejs
     nodePackages.npm
+    typescript
     yarn
-
+    # c
+    cmake
+    # python
+    conda
+    
     # used by pyppeteer
     pkgs-stable.chromium
   ];

@@ -24,9 +24,6 @@
       krabby random 1-3 | tail -n +2
     '';
 
-    extraLogin = ''
-    '';
-
     # home-manager will merge the content in `environmentVariables` with the `envFile.source`
     # but basically, I set all environment variables via the shell-independent way, so I don't need to use those two options
     #
