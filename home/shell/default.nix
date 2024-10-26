@@ -28,7 +28,9 @@
     # but basically, I set all environment variables via the shell-independent way, so I don't need to use those two options
     #
     # envFile.source = ./env.nu;
-    # environmentVariables = { FOO="bar"; };
+    environmentVariables = {
+      NIX_LD_LIBRARY_PATH = "/usr/lib/wsl/lib";
+    };
 
     shellAliases = {
     };

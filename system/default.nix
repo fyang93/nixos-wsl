@@ -7,8 +7,8 @@
     ./font.nix
     ./ssh.nix
     ./shell.nix
-    # ./python.nix
     ./docker.nix
+    ./nvidia.nix
   ];
 
   # List packages installed in system profile. To search, run:
