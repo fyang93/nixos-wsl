@@ -1,14 +1,17 @@
 { config, lib, pkgs, ... }:
 {
   # Enable OpenGL
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
+
+  hardware.nvidia-container-toolkit.enable = true;
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
+  # ??
+  boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
 
   hardware.nvidia = {
 
@@ -35,7 +38,7 @@
     open = false;
 
     # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
+	  # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.

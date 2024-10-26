@@ -2,7 +2,6 @@
   programs.bash = {
     enable = true;
     enableCompletion = true;
-    initExtra = "nu";
   };
 
   programs.nushell = {
@@ -15,8 +14,10 @@
         "${config.home.homeDirectory}/.local/bin"
         ($env.PATH | split row (char esep))
       ] | flatten)
+      $env.NIX_LD_LIBRARY_PATH = "/usr/lib/wsl/lib"
+
       use ${nushell-scripts}/custom-completions/git/git-completions.nu *
-      use ${nushell-scripts}/custom-completions/make/make-completions.nu *
+      # use ${nushell-scripts}/custom-completions/make/make-completions.nu *
       use ${nushell-scripts}/custom-completions/nix/nix-completions.nu *
       use ${nushell-scripts}/custom-completions/cargo/cargo-completions.nu *
       use ${nushell-scripts}/custom-completions/zellij/zellij-completions.nu *
@@ -28,9 +29,7 @@
     # but basically, I set all environment variables via the shell-independent way, so I don't need to use those two options
     #
     # envFile.source = ./env.nu;
-    environmentVariables = {
-      NIX_LD_LIBRARY_PATH = "/usr/lib/wsl/lib";
-    };
+    # environmentVariables = {};
 
     shellAliases = {
     };

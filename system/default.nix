@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -8,7 +8,7 @@
     ./ssh.nix
     ./shell.nix
     ./docker.nix
-    ./nvidia.nix
+    # ./nvidia.nix
   ];
 
   # List packages installed in system profile. To search, run:
@@ -44,7 +44,7 @@
     conda
     
     # used by pyppeteer
-    pkgs-stable.chromium
+    chromium
   ];
 
   programs = {
