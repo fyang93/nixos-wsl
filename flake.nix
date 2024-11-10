@@ -9,9 +9,8 @@
   outputs = inputs @ {
     self,
     nixpkgs,
-    nixoswsl,
+    nixos-wsl,
     home-manager,
-    vscode-server,
     ...
   }: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem rec {
@@ -28,9 +27,22 @@
       } // inputs;
 
       modules = [
-        nixoswsl.nixosModules.wsl {
-          wsl.defaultUser = "${specialArgs.username}";
-        }
+        nixos-wsl.nixosModules.default
+        ({ pkgs, ... }: {
+          system.stateVersion = "24.05";
+          wsl = {
+            enable = true;
+            wrapBinSh = false; # https://github.com/microsoft/vscode-remote-release/issues/10375
+            useWindowsDriver = true; # required by nvidia-container-toolkit-cdi-generator
+            defaultUser = "${specialArgs.username}";
+          };
+          programs.nix-ld = {
+            enable = true;
+            package = pkgs.nix-ld-rs; # only for NixOS 24.05
+            libraries = with pkgs; [
+            ];
+          };
+        })
 
         ./system
 
@@ -48,40 +60,6 @@
         # https://github.com/nix-community/nixos-vscode-server/issues/41
         # check: https://github.com/nix-community/nixos-vscode-server
         #        https://github.com/nix-community/NixOS-WSL/issues/294
-        vscode-server.nixosModules.default
-        ({ pkgs, ... }: {
-          system = {
-            stateVersion = "24.05";
-          };
-          programs.nix-ld.enable = true;
-          services.vscode-server.enable = true;
-          environment.systemPackages = [
-            pkgs.wget
-          ];
-
-          wsl = {
-            enable = true;
-            useWindowsDriver = true; # required by nvidia-container-toolkit-cdi-generator
-            nativeSystemd = true; # required to set nushell as the default shell
-            defaultUser = "${specialArgs.username}";
-            extraBin = with pkgs; [
-              { src = "${coreutils}/bin/cat"; }
-              { src = "${coreutils}/bin/date"; }
-              { src = "${coreutils}/bin/dirname"; }
-              { src = "${findutils}/bin/find"; }
-              { src = "${coreutils}/bin/id"; }
-              { src = "${coreutils}/bin/mkdir"; }
-              { src = "${coreutils}/bin/mv"; }
-              { src = "${coreutils}/bin/readlink"; }
-              { src = "${coreutils}/bin/rm"; }
-              { src = "${coreutils}/bin/sleep"; }
-              { src = "${coreutils}/bin/uname"; }
-              { src = "${coreutils}/bin/wc"; }
-              { src = "${gnutar}/bin/tar"; }
-              { src = "${gzip}/bin/gzip"; }
-            ];
-          };
-        })
       ];
     };
   };
@@ -96,7 +74,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
 
     # follows https://github.com/nix-community/NixOS-WSL/issues/294
-    nixoswsl = {
+    nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -108,11 +86,6 @@
       # Here, `inputs.nixpkgs` of home-manager is kept consistent with the `inputs.nixpkgs` of the current flake,
       # to avoid problems caused by different versions of nixpkgs dependencies.
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # vscode server
-    vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
     };
 
     # useful nushell scripts, such as auto_completion
@@ -142,8 +115,8 @@
 
     substituters = [
       # replace official cache with a mirror located in China
+      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
       "https://mirror.sjtu.edu.cn/nix-channels/store"
-      "https://mirrors.ustc.edu.cn/nix-channels/store"
     ];
   };
 }

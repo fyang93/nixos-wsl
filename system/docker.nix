@@ -1,15 +1,20 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   virtualisation = {
-    # enable docker
     docker = {
       enable = true;
-      # start dockerd on boot.
-      # This is required for containers which are created with the `--restart=always` flag to work.
       enableOnBoot = true;
+      autoPrune.enable = true;
     };
   };
 
-  hardware.nvidia-container-toolkit.enable = true;
+  hardware.nvidia-container-toolkit = {
+    enable = true;
+    mount-nvidia-executables = false;
+  };
+
+  # environment.variables = {
+  #   LD_LIBRARY_PATH = "/run/opengl-driver/lib";
+  # };
 }

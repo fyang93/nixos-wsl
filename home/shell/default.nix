@@ -2,6 +2,9 @@
   programs.bash = {
     enable = true;
     enableCompletion = true;
+    initExtra = ''
+      nu
+    '';
   };
 
   programs.nushell = {
@@ -14,7 +17,6 @@
         "${config.home.homeDirectory}/.local/bin"
         ($env.PATH | split row (char esep))
       ] | flatten)
-      $env.NIX_LD_LIBRARY_PATH = "/usr/lib/wsl/lib"
 
       use ${nushell-scripts}/custom-completions/git/git-completions.nu *
       # use ${nushell-scripts}/custom-completions/make/make-completions.nu *
