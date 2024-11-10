@@ -54,12 +54,6 @@
             users."${specialArgs.username}" = import ./home;
           };
         }
-
-        # fix vscode server issue
-        # https://github.com/microsoft/vscode-remote-release/issues/7986
-        # https://github.com/nix-community/nixos-vscode-server/issues/41
-        # check: https://github.com/nix-community/nixos-vscode-server
-        #        https://github.com/nix-community/NixOS-WSL/issues/294
       ];
     };
   };

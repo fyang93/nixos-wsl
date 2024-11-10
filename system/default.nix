@@ -8,7 +8,6 @@
     ./ssh.nix
     ./shell.nix
     ./docker.nix
-    # ./nvidia.nix
   ];
 
   # List packages installed in system profile. To search, run:

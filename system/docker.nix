@@ -13,8 +13,4 @@
     enable = true;
     mount-nvidia-executables = false;
   };
-
-  # environment.variables = {
-  #   LD_LIBRARY_PATH = "/run/opengl-driver/lib";
-  # };
 }
