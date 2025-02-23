@@ -42,7 +42,8 @@
     # python
     conda
     
-    # used by pyppeteer
+    # web scrape
+    playwright
     chromium
   ];
 
