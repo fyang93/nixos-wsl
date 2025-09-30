@@ -1,12 +1,4 @@
 { pkgs, config, nushell-scripts, ...}: {
-  programs.bash = {
-    enable = true;
-    enableCompletion = true;
-    initExtra = ''
-      nu
-    '';
-  };
-
   programs.nushell = {
     enable = true;
     configFile.source = ./config.nu;
